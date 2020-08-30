@@ -1,2 +1,3 @@
 # ling
-Cli for creating remax and react apps with anna
+
+Cli for creating react and remax apps with anna
