@@ -6,7 +6,7 @@
   "bin": {
     "eurus": "bin/eurus"
   },
-  "repository": "git@github.com:AnnaSearl/ling.git",
+  "repository": "git@github.com:AnnaSearl/eurus.git",
   "author": "emmm <1029846268@qq.com>",
   "license": "MIT",
   "devDependencies": {},
