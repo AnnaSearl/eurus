@@ -1,8 +1,8 @@
-# Eurus
+## Eurus
 
 Cli for creating react and remax apps with anna
 
-## Quick Overview
+#### Quick Overview
 
 ```bash
 npx eurus my-app
