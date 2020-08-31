@@ -1,21 +1,13 @@
 import * as React from 'react';
-import { View, Text, Image } from 'remax/{{ platform }}';
+import { View } from 'remax/wechat';
 import styles from './index.css';
 
 export default () => {
   return (
     <View className={styles.app}>
-      <View className={styles.header}>
-        <Image
-          src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*OGyZSI087zkAAAAAAAAAAABkARQnAQ"
-          className={styles.logo}
-          alt="logo"
-        />
-        <View className={styles.text}>
-          编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
-          开始
-        </View>
-      </View>
+      <View className={styles.logo}>ANNA</View>
+      <View className={styles.description}>ELEGANT AND SIMPLE</View>
+      <View className={styles.time}>2019 - 2020</View>
     </View>
   );
 };

@@ -1,31 +1,26 @@
 .app {
+  background-color: #fefffe;
+  color: #000;
+  height: 100vh;
+  padding-top: 30px;
   text-align: center;
-  padding: 0 24px;
 }
 
 .logo {
-  animation: logo-spin infinite 20s linear;
-  height: 240px;
-  width: 240px;
-  pointer-events: none;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  margin-bottom: 30px;
 }
 
-.text {
-  margin-top: 64px;
+.description {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 30px;
 }
 
-.header {
-  padding-top: 30%;
-  background-color: #282c34;
-  font-size: 40px;
-  color: white;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.time {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 30px;
 }

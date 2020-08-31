@@ -1,6 +1,6 @@
 {{#if one}}
 const pages = ['pages/index/index'];
-const color = '#282c34';
+const color = '#FEFFFE';
 
 import { AppConfig as WechatAppConfig } from 'remax/wechat';
 import { AppConfig as AliAppConfig } from 'remax/ali';
@@ -11,7 +11,6 @@ export const wechat: WechatAppConfig = {
   pages,
   window: {
     navigationBarBackgroundColor: color,
-    navigationBarTitleText: 'Remax One Wechat',
   },
 };
 
@@ -26,14 +25,13 @@ export const ali: AliAppConfig = {
 export const toutiao: ToutiaoAppConfig = {
   pages,
   window: {
-    navigationBarTitleText: 'Remax One Toutiao',
     navigationBarBackgroundColor: color,
   },
 };
 
 export const web: WebAppConfig = {
   pages,
-  title: 'Remax One Web',
+  title: 'One Web',
 };
 {{else}}
 import { AppConfig } from "remax/{{platform}}";
@@ -41,8 +39,7 @@ import { AppConfig } from "remax/{{platform}}";
 const config: AppConfig = {
   pages: ['pages/index/index'],
   window: {
-    navigationBarTitleText: 'Remax {{ platformTitle }} Template With TypeScript',
-    navigationBarBackgroundColor: '#282c34'
+    navigationBarBackgroundColor: '#FEFFFE',
   }
 };
 

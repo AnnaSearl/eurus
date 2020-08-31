@@ -1,9 +1,10 @@
 {
-  "name": "ling",
+  "name": "eurus",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "Cli for creating react and remax apps with anna",
   "bin": {
-    "ling": "bin/ling"
+    "eurus": "bin/eurus"
   },
   "repository": "git@github.com:AnnaSearl/ling.git",
   "author": "emmm <1029846268@qq.com>",
