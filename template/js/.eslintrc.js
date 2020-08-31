@@ -9,7 +9,6 @@ module.exports = {
     'prettier',
     'prettier/react',
   ],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -19,10 +18,10 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint',
   ],
   rules: {
     radix: 0,
+    'react/display-name': 0,
     'react/jsx-filename-extension': 0,
     'import/no-unresolved': [2, { ignore: ['^@/'] }],
     // 'react/jsx-one-expression-per-line': [2, { allow: 'literal' }],

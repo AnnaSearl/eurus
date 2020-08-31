@@ -8,18 +8,18 @@ const path = require("path");
 const fs = require("fs-extra");
 const async = require("async");
 
-const lingColor = "FF7777";
-const lingLightColor = "FFBBBB";
-const lingChalk = chalk.hex(lingColor);
-const lingLigntChalk = chalk.hex(lingLightColor);
-const lingPoint = {
+const eurusColor = "FF7777";
+const eurusLightColor = "FFBBBB";
+const eurusChalk = chalk.hex(eurusColor);
+const eurusLigntChalk = chalk.hex(eurusLightColor);
+const eurusPoint = {
   interval: 125,
   frames: [
-    lingLigntChalk.bold("∙∙∙"),
-    lingLigntChalk.bold("●∙∙"),
-    lingLigntChalk.bold("∙●∙"),
-    lingLigntChalk.bold("∙∙●"),
-    lingLigntChalk.bold("∙∙∙"),
+    eurusLigntChalk.bold("∙∙∙"),
+    eurusLigntChalk.bold("●∙∙"),
+    eurusLigntChalk.bold("∙●∙"),
+    eurusLigntChalk.bold("∙∙●"),
+    eurusLigntChalk.bold("∙∙∙"),
   ],
 };
 
@@ -111,9 +111,9 @@ module.exports.run = async function (args) {
   }
   console.log("\n");
   const spinner = ora({
-    spinner: lingPoint,
-    prefixText: lingLigntChalk.bold("Ling"),
-    text: lingLigntChalk("Downloading template, please wait..."),
+    spinner: eurusPoint,
+    prefixText: eurusLigntChalk.bold("Eurus"),
+    text: eurusLigntChalk("Downloading template, please wait..."),
   });
   spinner.start();
   const isExists = fs.pathExistsSync(destinationPath);
@@ -124,9 +124,9 @@ module.exports.run = async function (args) {
   }
   Metalsmith(process.cwd())
     .metadata({
-      name: "ling-project",
-      description: "ling-project",
-      author: "ling",
+      name: "eurus-project",
+      description: "eurus-project",
+      author: "eurus",
       platform: "wechat",
       one: false,
     })
@@ -144,21 +144,21 @@ module.exports.run = async function (args) {
       console.log("\n");
       spinner.stopAndPersist({
         prefixText: false,
-        symbol: lingLigntChalk.bold("✔"),
-        text: lingLigntChalk("Project init successfully!"),
+        symbol: eurusLigntChalk.bold("✔"),
+        text: eurusLigntChalk("Project init successfully!"),
       });
       console.log(
         chalk.cyan("\t\n  1. First, please execute the following command:")
       );
       console.log(
-        lingChalk.bold("\t\n    cd " + projectName + " && npm install")
+        eurusChalk.bold("\t\n    cd " + projectName + " && npm install")
       );
       console.log(
         chalk.cyan("\t\n  2. Then you can run several commands:\t\n")
       );
-      console.log(lingChalk.bold("    npm start"));
+      console.log(eurusChalk.bold("    npm start"));
       console.log("      Run development environment.");
-      console.log(lingChalk.bold("\t\n    npm run build"));
+      console.log(eurusChalk.bold("\t\n    npm run build"));
       console.log("      Building applications for production.");
     });
 };

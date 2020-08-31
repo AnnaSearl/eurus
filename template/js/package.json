@@ -2,21 +2,23 @@
   "name": "{{ name }}",
   "private": true,
   "version": "1.0.0",
-  "description": "{{ description }}",
   "main": "index.js",
   "keywords": [],
-  "author": "{{{ author }}}",
+  "author": "{{ author }}",
   "license": "MIT",
   "scripts": {
     {{#if one}}
-    "dev": "remax build -w -t",
+    "start": "remax build -w -t",
     "build": "cross-env NODE_ENV=production remax build -t"
     {{else}}
-    "dev": "remax build -t {{ platform }} -w",
+    "start": "remax build -t {{ platform }} -w",
     "build": "cross-env NODE_ENV=production remax build -t {{ platform }}"
     {{/if}}
   },
   "dependencies": {
+    {{#if anna}}
+    "anna-remax-ui": "^1.8.16",
+    {{/if}}
     "react": "^16.12.0",
     {{#if one}}
     "react-dom": "^16.12.0",
@@ -24,6 +26,20 @@
     "remax": "^2.7.7"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2"
+    "cross-env": "^7.0.2",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "prettier": "2.1.1",
+    "stylelint": "^13.6.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0"
   }
 }
