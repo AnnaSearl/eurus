@@ -1,166 +1,49 @@
 const cli = require("yargs");
-const inquirer = require("inquirer");
-const Metalsmith = require("metalsmith");
-const consolidate = require("consolidate");
-const chalk = require("chalk");
-const ora = require("ora");
-const path = require("path");
-const fs = require("fs-extra");
-const async = require("async");
-
-const eurusColor = "FF7777";
-const eurusLightColor = "FFBBBB";
-const eurusChalk = chalk.hex(eurusColor);
-const eurusLigntChalk = chalk.hex(eurusLightColor);
-const eurusPoint = {
-  interval: 125,
-  frames: [
-    eurusLigntChalk.bold("∙∙∙"),
-    eurusLigntChalk.bold("●∙∙"),
-    eurusLigntChalk.bold("∙●∙"),
-    eurusLigntChalk.bold("∙∙●"),
-    eurusLigntChalk.bold("∙∙∙"),
-  ],
-};
-
-const questions = [
-  {
-    type: "list",
-    name: "platform",
-    message: "您要创建哪种平台的小程序？",
-    choices: [
-      { name: "wechat", value: "wechat" },
-      { name: "ali", value: "ali" },
-      { name: "toutiao", value: "toutiao" },
-      { name: "one", value: "one" },
-    ],
-    default: "wechat",
-  },
-  {
-    type: "list",
-    name: "ts",
-    message: "您的项目使用TypeScript吗？",
-    choices: [
-      { name: "Yes", value: true },
-      { name: "NO", value: false },
-    ],
-    default: "Yes",
-  },
-  {
-    type: "list",
-    name: "anna",
-    message: "您想使用 Anna 作为UI组件么？",
-    choices: [
-      { name: "Yes", value: true },
-      { name: "NO", value: false },
-    ],
-    default: "Yes",
-  },
-];
-
-function ask(prompts) {
-  return function (_, metalsmith, done) {
-    const metadata = metalsmith.metadata();
-    async.eachSeries(Object.keys(prompts), run, done);
-    if (metadata["platform"] === "one") {
-      metadata["one"] = true;
-    }
-
-    function run(key, done) {
-      metadata[key] = prompts[key];
-      done();
-    }
-  };
-}
-
-function renderTemplateFiles() {
-  return function (files, metalsmith, done) {
-    const metadata = metalsmith.metadata();
-    const keys = Object.keys(files);
-    async.each(
-      keys,
-      (file, next) => {
-        const str = files[file].contents.toString();
-        if (!/{{([^{}]+)}}/g.test(str)) {
-          return next();
-        }
-        consolidate.handlebars.render(str, metadata, (err, res) => {
-          if (err) {
-            err.message = `[${file}] ${err.message}`;
-            return next(err);
-          }
-          files[file].contents = Buffer.from(res, "utf-8");
-        });
-        next();
-      },
-      done
-    );
-  };
-}
+const create = require("./create");
+const build = require("./build");
+const macros = require("./utils/macros");
 
 module.exports.run = async function (args) {
-  cli.parse(args);
-  const projectName = cli.argv._[0];
-  const destinationPath = path.join(process.cwd(), projectName);
-  let templatePath = path.join(__dirname, "..", "template");
-  const answers = await inquirer.prompt(questions);
-  if (answers.ts) {
-    templatePath = path.join(templatePath, "ts");
-  } else {
-    templatePath = path.join(templatePath, "js");
-  }
-  console.log("\n");
-  const spinner = ora({
-    spinner: eurusPoint,
-    prefixText: eurusLigntChalk.bold("Eurus"),
-    text: eurusLigntChalk("Downloading template, please wait..."),
-  });
-  spinner.start();
-  const isExists = fs.pathExistsSync(destinationPath);
-  if (isExists) {
-    spinner.stop();
-    console.log(chalk.hex("FFFF66").bold("  此项目已存在，请变更名字后重试"));
-    return;
-  }
-  Metalsmith(process.cwd())
-    .metadata({
-      name: "eurus-project",
-      description: "eurus-project",
-      author: "eurus",
-      platform: "wechat",
-      one: false,
-    })
-    .source(templatePath)
-    .destination(destinationPath)
-    .use(ask(answers))
-    .use(renderTemplateFiles())
-    .build((err) => {
-      if (err) {
-        spinner.stop();
-        console.log(chalk.hex("FF4D4F").bold("  Project init failed"));
-        console.log("error: ", err);
-        return;
+  cli
+    .scriptName("eurus")
+    .usage(
+      `$0 <${macros.placeholder}> [options]`,
+      "Create Eurus project",
+      (yargs) => {
+        return yargs.positional(macros.placeholder, {
+          describe: "项目目录",
+          type: "string",
+        });
+      },
+      (argv) => {
+        create(argv);
       }
-      console.log("\n");
-      spinner.stopAndPersist({
-        prefixText: false,
-        symbol: eurusLigntChalk.bold("✔"),
-        text: eurusLigntChalk("Project init successfully!"),
-      });
-      console.log(
-        chalk.cyan("\t\n  1. First, please execute the following command:")
-      );
-      console.log(
-        eurusChalk.bold("\t\n    cd " + projectName + " && npm install")
-      );
-      console.log(
-        chalk.cyan("\t\n  2. Then you can run several commands:\t\n")
-      );
-      console.log(eurusChalk.bold("    npm start"));
-      console.log("      Run development environment.");
-      console.log(eurusChalk.bold("\t\n    npm run build"));
-      console.log("      Building applications for production.");
-    });
+    )
+    .command(
+      ["run <env>"],
+      "Compile project",
+      () => {},
+      (argv) => {
+        build(argv);
+      }
+    )
+    .option("t", {
+      describe: "目标平台，如 wechat，ali",
+      alias: "target",
+      type: "string",
+      requiresArg: true,
+    })
+    .option("w", {
+      describe: "监听文件变化",
+      alias: "watch",
+      type: "boolean",
+      default: false,
+    })
+    .option("h", {
+      alias: "help",
+    })
+    .option("v", {
+      alias: "version",
+    })
+    .parse(args);
 };
-
-// 更改名称
