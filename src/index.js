@@ -20,7 +20,7 @@ module.exports.run = async function (args) {
       }
     )
     .command(
-      ["run <env>"],
+      ["build <env>"],
       "Compile project",
       () => {},
       (argv) => {
