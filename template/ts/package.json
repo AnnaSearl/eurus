@@ -8,11 +8,13 @@
   "license": "MIT",
   "scripts": {
     {{#if one}}
-    "start": "remax build -w -t",
-    "build": "cross-env NODE_ENV=production remax build -t"
+    "start": "eurus build dev -w -t",
+    "release": "eurus build release -w -t",
+    "build": "eurus build prod -t"
     {{else}}
-    "start": "remax build -t {{ platform }} -w",
-    "build": "cross-env NODE_ENV=production remax build -t {{ platform }}"
+    "start": "eurus build dev -t {{ platform }} -w",
+    "release": "eurus build release -t {{ platform }} -w",
+    "build": "eurus build prod -t {{ platform }}"
     {{/if}}
   },
   "dependencies": {
@@ -29,6 +31,7 @@
     "cross-env": "^7.0.2",
     "@types/react": "^16.9.16",
     "typescript": "^3.7.3",
+    "eurus": "^1.1.2",
     "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
