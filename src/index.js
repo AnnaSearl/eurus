@@ -39,6 +39,12 @@ module.exports.run = async function (args) {
       type: "boolean",
       default: false,
     })
+    .option("m", {
+      describe: "最小化文件",
+      alias: "minimize",
+      type: "boolean",
+      default: false,
+    })
     .option("h", {
       alias: "help",
     })

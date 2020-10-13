@@ -22,7 +22,7 @@ module.exports = function build(argv) {
   }, "");
   const cmd = `cross-env NODE_ENV=${env}${variables} remax build -t ${argv.t} ${
     argv.w ? "-w" : ""
-  }`;
+  } ${argv.m ? "-m" : ""}`;
 
   console.log(chalk.green.bold("\t\n 开始构建"));
   console.log(chalk.green.bold(`\t\n 开启 Remax 进程`));
