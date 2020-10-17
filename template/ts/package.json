@@ -19,7 +19,7 @@
   },
   "dependencies": {
     {{#if anna}}
-    "anna-remax-ui": "^1.8.16",
+    "annar": "^2.0.2",
     {{/if}}
     "react": "^16.12.0",
     {{#if one}}
@@ -28,10 +28,18 @@
     "remax": "^2.7.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "commitizen": "^4.2.1",
     "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "^3.3.0",
     "@types/react": "^16.9.16",
+    "@typescript-eslint/eslint-plugin": "4.0.1",
+    "@typescript-eslint/parser": "4.0.1",
     "typescript": "^3.7.3",
     "eurus": "^1.1.2",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -40,11 +48,29 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "prettier": "2.1.1",
+    "pretty-quick": "^3.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-sass-guidelines": "^7.0.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.18.0"
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "npm run lint",
+      "pretty-quick --staged"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }

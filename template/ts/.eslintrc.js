@@ -7,6 +7,7 @@ module.exports = {
     'airbnb',
     'plugin:react/recommended',
     'prettier',
+    'plugin:import/typescript',
     'prettier/react',
   ],
   parser: '@typescript-eslint/parser',
@@ -17,16 +18,34 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
+  plugins: ['react', '@typescript-eslint'],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['utils'],
+      },
+    },
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
+      },
+    },
   ],
   rules: {
     radix: 0,
-    'react/display-name': 0,
     'react/jsx-filename-extension': 0,
+    'react/jsx-props-no-spreading': 0,
+    'no-restricted-globals': 0,
+    'react/prop-types': [2, { ignore: ['location'], skipUndeclared: true }],
     'import/no-unresolved': [2, { ignore: ['^@/'] }],
-    // 'react/jsx-one-expression-per-line': [2, { allow: 'literal' }],
-    // 'import/extensions': { tsx: 'always', tsx: 'never' },
+    'no-use-before-define': [2, { variables: false }],
+    'func-names': [2, 'as-needed'],
+    'import/extensions': 0,
+  },
+  globals: {
+    dd: 'readonly',
   },
 };
