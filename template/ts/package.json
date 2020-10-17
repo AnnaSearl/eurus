@@ -14,8 +14,19 @@
     {{else}}
     "start": "eurus build dev -t {{ platform }} -w",
     "release": "eurus build release -t {{ platform }} -w",
-    "build": "eurus build prod -t {{ platform }}"
+    "build": "eurus build prod -t {{ platform }}",
     {{/if}}
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "pub": "sh shell/pub.sh",
+    "commit": "sh shell/commit.sh",
+    "pretty-quick": "pretty-quick",
+    "lint": "npm run lint:script && npm run lint:style",
+    "lint:script": "eslint src --ext '.js,.jsx,.ts,.tsx'",
+    "lint:style": "stylelint 'src/**/*.*ss'",
+    "lint-fix": "npm run lint-fix:script && npm run lint-fix:style",
+    "lint-fix:script": "npm run lint:script -- --fix",
+    "lint-fix:style": "npm run lint:style -- --fix"
   },
   "dependencies": {
     {{#if anna}}
@@ -49,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.1.0",
     "prettier": "2.1.1",
     "pretty-quick": "^3.0.2",
+    "rimraf": "^3.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-sass-guidelines": "^7.0.0",
